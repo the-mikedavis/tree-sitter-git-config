@@ -184,10 +184,6 @@
         {
           "type": "section",
           "named": true
-        },
-        {
-          "type": "subsection",
-          "named": true
         }
       ]
     }
@@ -216,45 +212,6 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "section_name",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "string",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "subsection",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "subsection_header",
-          "named": true
-        },
-        {
-          "type": "variable",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "subsection_header",
-    "named": true,
-    "fields": {},
-    "children": {
       "multiple": true,
       "required": true,
       "types": [
@@ -268,6 +225,16 @@
         }
       ]
     }
+  },
+  {
+    "type": "string",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "subsection_name",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "value",
@@ -470,10 +437,6 @@
   {
     "type": "strike",
     "named": false
-  },
-  {
-    "type": "subsection_name",
-    "named": true
   },
   {
     "type": "true",

@@ -1,7 +1,7 @@
 // reference: https://git-scm.com/docs/git-config#_syntax
 
 const NEWLINE = /\r?\n/;
-const WHITE_SPACE = / \t\f\v/;
+const WHITE_SPACE = /[ \t\f\v]/;
 const ANYTHING = /[^\r\n]/;
 
 // "The basic colors accepted are normal, black, red, green, yellow, blue, magenta, cyan
@@ -51,7 +51,7 @@ module.exports = grammar({
   extras: ($) => [WHITE_SPACE, $.comment],
 
   rules: {
-    config: ($) => repeat(choice($.section, $.subsection)),
+    config: ($) => repeat($.section),
 
     section: ($) =>
       seq(
@@ -60,24 +60,17 @@ module.exports = grammar({
         optional(NEWLINE)
       ),
 
-    subsection: ($) =>
-      seq(
-        $.subsection_header,
-        repeat(seq(NEWLINE, $.variable)),
-        optional(NEWLINE)
-      ),
-
-    section_header: ($) => seq("[", $.section_name, "]"),
-
-    subsection_header: ($) =>
-      seq("[", $.section_name, '"', $.subsection_name, '"', "]"),
+    section_header: ($) =>
+      seq("[", $.section_name, optional(seq('"', $.subsection_name, '"')), "]"),
 
     // "Only alphanumeric characters, - and . are allowed in section names"
     section_name: ($) => /[\w\.]+/,
 
     // "Subsection names are case sensitive and can contain any characters except newline
     // and the null byte."
-    subsection_name: ($) => /[^\r\n\x00]+/,
+    // TODO: fix null byte
+    subsection_name: ($) =>
+      repeat1(choice(/[^\r\n\x00\"\\]+/, $._escape_sequence)),
 
     // "All the other lines (and the remainder of the line after the section header) are
     // recognized as setting variables, in the form name = value (or just name, which is
