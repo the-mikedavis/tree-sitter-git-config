@@ -467,7 +467,7 @@
     },
     "_unquoted_string": {
       "type": "PATTERN",
-      "value": "[^\\r\\n]"
+      "value": "[^\\r\\n]+"
     },
     "_escape_sequence": {
       "type": "PATTERN",
@@ -491,7 +491,7 @@
         },
         {
           "type": "PATTERN",
-          "value": "[^\\r\\n]"
+          "value": "[^\\r\\n]+"
         }
       ]
     }

@@ -2,7 +2,7 @@
 
 const NEWLINE = /\r?\n/;
 const WHITE_SPACE = /[ \t\f\v]/;
-const ANYTHING = /[^\r\n]/;
+const ANYTHING = /[^\r\n]+/;
 
 // "The basic colors accepted are normal, black, red, green, yellow, blue, magenta, cyan
 // and white."

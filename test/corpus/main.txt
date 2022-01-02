@@ -44,3 +44,25 @@ section with variables
       (name)
       (value
         (true)))))
+
+================================================================================
+subsection with variables
+================================================================================
+[remote "origin"]
+	url = git@github.com:the-mikedavis/tree-sitter-git-config.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+
+--------------------------------------------------------------------------------
+(config
+  (section
+    (section_header
+      (section_name)
+      (subsection_name))
+    (variable
+      (name)
+      (value
+        (string)))
+    (variable
+      (name)
+      (value
+        (string)))))
