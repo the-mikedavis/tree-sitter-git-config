@@ -1,8 +1,21 @@
 [
   {
+    "type": "comment",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "source",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "#",
+    "named": false
+  },
+  {
+    "type": ";",
+    "named": false
   },
   {
     "type": "hello",
