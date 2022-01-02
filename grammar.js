@@ -51,11 +51,21 @@ module.exports = grammar({
   extras: ($) => [WHITE_SPACE, $.comment],
 
   rules: {
-    source: ($) => repeat($.section),
+    config: ($) => repeat(choice($.section, $.subsection)),
 
-    section: ($) => seq($.section_header, repeat($.variable)),
+    section: ($) =>
+      seq(
+        $.section_header,
+        repeat(seq(NEWLINE, $.variable)),
+        optional(NEWLINE)
+      ),
 
-    subsection: ($) => seq($.subsection_header, repeat($.variable)),
+    subsection: ($) =>
+      seq(
+        $.subsection_header,
+        repeat(seq(NEWLINE, $.variable)),
+        optional(NEWLINE)
+      ),
 
     section_header: ($) => seq("[", $.section_name, "]"),
 
@@ -63,11 +73,11 @@ module.exports = grammar({
       seq("[", $.section_name, '"', $.subsection_name, '"', "]"),
 
     // "Only alphanumeric characters, - and . are allowed in section names"
-    section_name: ($) => /[\w\.]/,
+    section_name: ($) => /[\w\.]+/,
 
     // "Subsection names are case sensitive and can contain any characters except newline
     // and the null byte."
-    subsection_name: ($) => /[^\r\n\x00]/,
+    subsection_name: ($) => /[^\r\n\x00]+/,
 
     // "All the other lines (and the remainder of the line after the section header) are
     // recognized as setting variables, in the form name = value (or just name, which is
@@ -76,7 +86,7 @@ module.exports = grammar({
 
     // "The variable names are case-insensitive, allow only alphanumeric characters and -,
     // and must start with an alphabetic character."
-    name: ($) => /[a-zA-Z][\w\-]/,
+    name: ($) => /[a-zA-Z][\w\-]*/,
 
     // https://git-scm.com/docs/git-config#_values
     value: ($) => choice($._boolean, $.color, $.integer, $.string),

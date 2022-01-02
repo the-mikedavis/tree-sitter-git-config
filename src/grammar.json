@@ -1,11 +1,20 @@
 {
   "name": "git_config",
   "rules": {
-    "source": {
+    "config": {
       "type": "REPEAT",
       "content": {
-        "type": "SYMBOL",
-        "name": "section"
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "section"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "subsection"
+          }
+        ]
       }
     },
     "section": {
@@ -18,9 +27,30 @@
         {
           "type": "REPEAT",
           "content": {
-            "type": "SYMBOL",
-            "name": "variable"
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "\\r?\\n"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "variable"
+              }
+            ]
           }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "\\r?\\n"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -34,9 +64,30 @@
         {
           "type": "REPEAT",
           "content": {
-            "type": "SYMBOL",
-            "name": "variable"
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "\\r?\\n"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "variable"
+              }
+            ]
           }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "\\r?\\n"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -88,11 +139,11 @@
     },
     "section_name": {
       "type": "PATTERN",
-      "value": "[\\w\\.]"
+      "value": "[\\w\\.]+"
     },
     "subsection_name": {
       "type": "PATTERN",
-      "value": "[^\\r\\n\\x00]"
+      "value": "[^\\r\\n\\x00]+"
     },
     "variable": {
       "type": "CHOICE",
@@ -122,7 +173,7 @@
     },
     "name": {
       "type": "PATTERN",
-      "value": "[a-zA-Z][\\w\\-]"
+      "value": "[a-zA-Z][\\w\\-]*"
     },
     "value": {
       "type": "CHOICE",
