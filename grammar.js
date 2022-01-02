@@ -82,14 +82,17 @@ module.exports = grammar({
     name: ($) => /[a-zA-Z][\w\-]*/,
 
     // https://git-scm.com/docs/git-config#_values
-    value: ($) => choice($._boolean, $.color, $.integer, $.string),
+    value: ($) => choice($._boolean, $.integer, $.color, $.string),
 
+    // NOTE: we diverge from the spec here to parse integers and empty strings
+    // as integers and strings rather than booleans, which is syntactically
+    // correct but possibly semantically incorrect.
     _boolean: ($) =>
       choice(
         // "Boolean true literals are yes, on, true, and 1."
-        alias(choice($.true, "yes", "on", "1"), $.true),
+        alias(choice($.true, "yes", "on"), $.true),
         // "Boolean false literals are no, off, false, 0 and the empty string."
-        alias(choice($.false, "no", "off", "0", '""'), $.false)
+        alias(choice($.false, "no", "off"), $.false)
       ),
 
     true: ($) => "true",
@@ -112,7 +115,10 @@ module.exports = grammar({
 
     // "The value for many variables that specify various sizes can be suffixed with k, M,…
     // to mean "scale the number by 1024", "by 1024x1024", etc."
-    integer: ($) => /\d+[kmgtpezyKMGTPEZY]?/,
+    //
+    // We take manual control of precedence here since the $.color rule is more complicated
+    // and tends to match with higher implicit precedence.
+    integer: ($) => token(prec(1, /\d+[kmgtpezyKMGTPEZY]?/)),
 
     string: ($) => choice($._quoted_string, $._unquoted_string),
 

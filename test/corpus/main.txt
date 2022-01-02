@@ -22,3 +22,25 @@ subsection header
     (section_header
       (section_name)
       (subsection_name))))
+
+================================================================================
+section with variables
+================================================================================
+[core]
+	repositoryformatversion = 0
+	filemode = true
+
+--------------------------------------------------------------------------------
+
+(config
+  (section
+    (section_header
+      (section_name))
+    (variable
+      (name)
+      (value
+        (integer)))
+    (variable
+      (name)
+      (value
+        (true)))))

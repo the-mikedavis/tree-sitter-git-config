@@ -146,11 +146,11 @@
         },
         {
           "type": "SYMBOL",
-          "name": "color"
+          "name": "integer"
         },
         {
           "type": "SYMBOL",
-          "name": "integer"
+          "name": "color"
         },
         {
           "type": "SYMBOL",
@@ -177,10 +177,6 @@
               {
                 "type": "STRING",
                 "value": "on"
-              },
-              {
-                "type": "STRING",
-                "value": "1"
               }
             ]
           },
@@ -203,14 +199,6 @@
               {
                 "type": "STRING",
                 "value": "off"
-              },
-              {
-                "type": "STRING",
-                "value": "0"
-              },
-              {
-                "type": "STRING",
-                "value": "\"\""
               }
             ]
           },
@@ -425,8 +413,15 @@
       ]
     },
     "integer": {
-      "type": "PATTERN",
-      "value": "\\d+[kmgtpezyKMGTPEZY]?"
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "PATTERN",
+          "value": "\\d+[kmgtpezyKMGTPEZY]?"
+        }
+      }
     },
     "string": {
       "type": "CHOICE",
