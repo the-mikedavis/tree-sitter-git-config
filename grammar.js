@@ -12,11 +12,7 @@ module.exports = grammar({
   rules: {
     config: ($) => repeat($.section),
 
-    section: ($) =>
-      seq(
-        $.section_header,
-        repeat(choice(NEWLINE, $.variable)),
-      ),
+    section: ($) => seq($.section_header, repeat(choice(NEWLINE, $.variable))),
 
     section_header: ($) =>
       seq("[", $.section_name, optional(seq('"', $.subsection_name, '"')), "]"),
@@ -32,7 +28,8 @@ module.exports = grammar({
     // "All the other lines (and the remainder of the line after the section header) are
     // recognized as setting variables, in the form name = value (or just name, which is
     // a short-hand to say that the variable is the boolean "true")."
-    variable: ($) => seq(choice(seq($.name, "=", field("value", $._value)), $.name)),
+    variable: ($) =>
+      seq(choice(seq($.name, "=", field("value", $._value)), $.name)),
 
     // "The variable names are case-insensitive, allow only alphanumeric characters and -,
     // and must start with an alphabetic character."
