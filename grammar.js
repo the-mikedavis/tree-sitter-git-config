@@ -114,8 +114,12 @@ module.exports = grammar({
     // to mean "scale the number by 1024", "by 1024x1024", etc."
     integer: ($) => /\d+[kmgtpezyKMGTPEZY]?/,
 
-    string: ($) =>
+    string: ($) => choice($._quoted_string, $._unquoted_string),
+
+    _quoted_string: ($) =>
       seq('"', repeat1(choice(/[^\"\\]/, $._escape_sequence)), '"'),
+
+    _unquoted_string: ($) => ANYTHING,
 
     _escape_sequence: ($) => /\\([btnfr"\\]|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8})/,
 

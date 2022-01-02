@@ -429,6 +429,19 @@
       "value": "\\d+[kmgtpezyKMGTPEZY]?"
     },
     "string": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_quoted_string"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_unquoted_string"
+        }
+      ]
+    },
+    "_quoted_string": {
       "type": "SEQ",
       "members": [
         {
@@ -456,6 +469,10 @@
           "value": "\""
         }
       ]
+    },
+    "_unquoted_string": {
+      "type": "PATTERN",
+      "value": "[^\\r\\n]"
     },
     "_escape_sequence": {
       "type": "PATTERN",
