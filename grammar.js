@@ -129,6 +129,6 @@ module.exports = grammar({
 
     _escape_sequence: ($) => /\\([btnfr"\\]|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8})/,
 
-    comment: ($) => seq(choice(";", "#"), ANYTHING),
+    comment: ($) => seq(/[#;]/, optional(ANYTHING), NEWLINE),
   },
 });

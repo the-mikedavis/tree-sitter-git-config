@@ -477,21 +477,24 @@
       "type": "SEQ",
       "members": [
         {
+          "type": "PATTERN",
+          "value": "[#;]"
+        },
+        {
           "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": ";"
+              "type": "PATTERN",
+              "value": "[^\\r\\n]+"
             },
             {
-              "type": "STRING",
-              "value": "#"
+              "type": "BLANK"
             }
           ]
         },
         {
           "type": "PATTERN",
-          "value": "[^\\r\\n]+"
+          "value": "\\r?\\n"
         }
       ]
     }
