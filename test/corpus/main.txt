@@ -69,12 +69,22 @@ subsection with variables
         (string)))))
 
 ================================================================================
-example from documentation with comments
+example from documentation with comments and multiple sections
 ================================================================================
 # Core variables
 [core]
 	; Don't trust file modes
 	filemode = false
+
+# Proxy settings
+[core]
+	gitProxy="ssh" for "kernel.org"
+	gitProxy=default-proxy ; for the rest
+
+[include]
+	path = /path/to/foo.inc ; include by absolute path
+	path = foo.inc ; find "foo.inc" relative to the current file
+	path = ~/foo.inc ; find "foo.inc" in your `$HOME` directory
 
 --------------------------------------------------------------------------------
 
@@ -87,4 +97,35 @@ example from documentation with comments
     (variable
       (name)
       (value
-        (false)))))
+        (false))))
+  (comment)
+  (section
+    (section_header
+      (section_name))
+    (variable
+      (name)
+      (value
+        (string)))
+    (variable
+      (name)
+      (value
+        (string)))
+    (comment))
+  (section
+    (section_header
+      (section_name))
+    (variable
+      (name)
+      (value
+        (string)))
+    (comment)
+    (variable
+      (name)
+      (value
+        (string)))
+    (comment)
+    (variable
+      (name)
+      (value
+        (string))))
+  (comment))
