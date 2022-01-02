@@ -113,8 +113,12 @@
                   "value": "="
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "value"
+                  "type": "FIELD",
+                  "name": "value",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_value"
+                  }
                 }
               ]
             },
@@ -130,7 +134,7 @@
       "type": "PATTERN",
       "value": "[a-zA-Z][\\w\\-]*"
     },
-    "value": {
+    "_value": {
       "type": "CHOICE",
       "members": [
         {

@@ -32,14 +32,14 @@ module.exports = grammar({
     // "All the other lines (and the remainder of the line after the section header) are
     // recognized as setting variables, in the form name = value (or just name, which is
     // a short-hand to say that the variable is the boolean "true")."
-    variable: ($) => seq(choice(seq($.name, "=", $.value), $.name)),
+    variable: ($) => seq(choice(seq($.name, "=", field("value", $._value)), $.name)),
 
     // "The variable names are case-insensitive, allow only alphanumeric characters and -,
     // and must start with an alphabetic character."
     name: ($) => /[a-zA-Z][\w\-]*/,
 
     // https://git-scm.com/docs/git-config#_values
-    value: ($) => choice($._boolean, $.integer, $.string),
+    _value: ($) => choice($._boolean, $.integer, $.string),
 
     // NOTE: we diverge from the spec here to parse integers and empty strings
     // as integers and strings rather than booleans, which is syntactically

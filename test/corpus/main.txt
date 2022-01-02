@@ -38,12 +38,10 @@ section with variables
       (section_name))
     (variable
       (name)
-      (value
-        (integer)))
+      (integer))
     (variable
       (name)
-      (value
-        (true)))))
+      (true))))
 
 ================================================================================
 subsection with variables
@@ -61,12 +59,10 @@ subsection with variables
       (subsection_name))
     (variable
       (name)
-      (value
-        (string)))
+      (string))
     (variable
       (name)
-      (value
-        (string)))))
+      (string))))
 
 ================================================================================
 example from documentation with comments and multiple sections
@@ -96,38 +92,32 @@ example from documentation with comments and multiple sections
     (comment)
     (variable
       (name)
-      (value
-        (false))))
+      (false)))
   (comment)
   (section
     (section_header
       (section_name))
     (variable
       (name)
-      (value
-        (string)))
+      (string))
     (variable
       (name)
-      (value
-        (string)))
+      (string))
     (comment))
   (section
     (section_header
       (section_name))
     (variable
       (name)
-      (value
-        (string)))
+      (string))
     (comment)
     (variable
       (name)
-      (value
-        (string)))
+      (string))
     (comment)
     (variable
       (name)
-      (value
-        (string))))
+      (string)))
   (comment))
 
 ================================================================================
@@ -190,62 +180,52 @@ full example from documentation with comments and multiple sections
     (comment)
     (variable
       (name)
-      (value
-        (false))))
+      (false)))
   (comment)
   (section
     (section_header
       (section_name))
     (variable
       (name)
-      (value
-        (string)))
+      (string))
     (variable
       (name)
-      (value
-        (true))))
+      (true)))
   (section
     (section_header
       (section_name)
       (subsection_name))
     (variable
       (name)
-      (value
-        (string)))
+      (string))
     (variable
       (name)
-      (value
-        (string))))
+      (string)))
   (comment)
   (section
     (section_header
       (section_name))
     (variable
       (name)
-      (value
-        (string)))
+      (string))
     (variable
       (name)
-      (value
-        (string)))
+      (string))
     (comment))
   (section
     (section_header
       (section_name))
     (variable
       (name)
-      (value
-        (string)))
+      (string))
     (comment)
     (variable
       (name)
-      (value
-        (string)))
+      (string))
     (comment)
     (variable
       (name)
-      (value
-        (string)))
+      (string))
     (comment))
   (comment)
   (section
@@ -254,8 +234,7 @@ full example from documentation with comments and multiple sections
       (subsection_name))
     (variable
       (name)
-      (value
-        (string))))
+      (string)))
   (comment)
   (section
     (section_header
@@ -263,8 +242,7 @@ full example from documentation with comments and multiple sections
       (subsection_name))
     (variable
       (name)
-      (value
-        (string))))
+      (string)))
   (comment)
   (section
     (section_header
@@ -272,19 +250,8 @@ full example from documentation with comments and multiple sections
       (subsection_name))
     (variable
       (name)
-      (value
-        (string))))
+      (string)))
   (comment)
-  (comment)
-  (comment)
-  (section
-    (section_header
-      (section_name)
-      (subsection_name))
-    (variable
-      (name)
-      (value
-        (string))))
   (comment)
   (comment)
   (section
@@ -293,5 +260,13 @@ full example from documentation with comments and multiple sections
       (subsection_name))
     (variable
       (name)
-      (value
-        (string)))))
+      (string)))
+  (comment)
+  (comment)
+  (section
+    (section_header
+      (section_name)
+      (subsection_name))
+    (variable
+      (name)
+      (string))))

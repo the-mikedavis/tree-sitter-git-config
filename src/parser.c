@@ -12,9 +12,9 @@
 #define ALIAS_COUNT 0
 #define TOKEN_COUNT 21
 #define EXTERNAL_TOKEN_COUNT 0
-#define FIELD_COUNT 0
+#define FIELD_COUNT 1
 #define MAX_ALIAS_SEQUENCE_LENGTH 6
-#define PRODUCTION_ID_COUNT 1
+#define PRODUCTION_ID_COUNT 2
 
 enum {
   aux_sym_section_token1 = 1,
@@ -42,7 +42,7 @@ enum {
   sym_section_header = 23,
   sym_subsection_name = 24,
   sym_variable = 25,
-  sym_value = 26,
+  sym__value = 26,
   sym__boolean = 27,
   sym_string = 28,
   sym__quoted_string = 29,
@@ -80,7 +80,7 @@ static const char * const ts_symbol_names[] = {
   [sym_section_header] = "section_header",
   [sym_subsection_name] = "subsection_name",
   [sym_variable] = "variable",
-  [sym_value] = "value",
+  [sym__value] = "_value",
   [sym__boolean] = "_boolean",
   [sym_string] = "string",
   [sym__quoted_string] = "_quoted_string",
@@ -118,7 +118,7 @@ static const TSSymbol ts_symbol_map[] = {
   [sym_section_header] = sym_section_header,
   [sym_subsection_name] = sym_subsection_name,
   [sym_variable] = sym_variable,
-  [sym_value] = sym_value,
+  [sym__value] = sym__value,
   [sym__boolean] = sym__boolean,
   [sym_string] = sym_string,
   [sym__quoted_string] = sym__quoted_string,
@@ -234,8 +234,8 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = true,
     .named = true,
   },
-  [sym_value] = {
-    .visible = true,
+  [sym__value] = {
+    .visible = false,
     .named = true,
   },
   [sym__boolean] = {
@@ -270,6 +270,24 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = false,
     .named = false,
   },
+};
+
+enum {
+  field_value = 1,
+};
+
+static const char * const ts_field_names[] = {
+  [0] = NULL,
+  [field_value] = "value",
+};
+
+static const TSFieldMapSlice ts_field_map_slices[PRODUCTION_ID_COUNT] = {
+  [1] = {.index = 0, .length = 1},
+};
+
+static const TSFieldMapEntry ts_field_map_entries[] = {
+  [0] =
+    {field_value, 2},
 };
 
 static const TSSymbol ts_alias_sequences[PRODUCTION_ID_COUNT][MAX_ALIAS_SEQUENCE_LENGTH] = {
@@ -894,7 +912,7 @@ static const uint16_t ts_small_parse_table[] = {
     STATE(2), 1,
       sym_comment,
     STATE(19), 1,
-      sym_value,
+      sym__value,
     STATE(20), 1,
       sym__quoted_string,
     STATE(21), 2,
@@ -1314,9 +1332,9 @@ static const TSParseActionEntry ts_parse_actions[] = {
   [76] = {.entry = {.count = 1, .reusable = false}}, REDUCE(aux_sym_subsection_name_repeat1, 2),
   [78] = {.entry = {.count = 2, .reusable = true}}, REDUCE(aux_sym_subsection_name_repeat1, 2), SHIFT_REPEAT(23),
   [81] = {.entry = {.count = 2, .reusable = false}}, REDUCE(aux_sym_subsection_name_repeat1, 2), SHIFT_REPEAT(23),
-  [84] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_variable, 3),
+  [84] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_variable, 3, .production_id = 1),
   [86] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_string, 1),
-  [88] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_value, 1),
+  [88] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym__value, 1),
   [90] = {.entry = {.count = 1, .reusable = false}}, REDUCE(aux_sym_subsection_name_repeat1, 1),
   [92] = {.entry = {.count = 1, .reusable = true}}, REDUCE(aux_sym_subsection_name_repeat1, 1),
   [94] = {.entry = {.count = 1, .reusable = false}}, REDUCE(aux_sym__quoted_string_repeat1, 1),
@@ -1359,6 +1377,9 @@ extern const TSLanguage *tree_sitter_git_config(void) {
     .small_parse_table_map = ts_small_parse_table_map,
     .parse_actions = ts_parse_actions,
     .symbol_names = ts_symbol_names,
+    .field_names = ts_field_names,
+    .field_map_slices = ts_field_map_slices,
+    .field_map_entries = ts_field_map_entries,
     .symbol_metadata = ts_symbol_metadata,
     .public_symbol_map = ts_symbol_map,
     .alias_map = ts_non_terminal_alias_map,
