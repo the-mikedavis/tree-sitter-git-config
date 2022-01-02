@@ -1,21 +1,22 @@
 # Core variables
 # <- comment
 [core]
-# <- punctuation.delimiter
+# <- punctuation.bracket
 # ^ tag
 	; Don't trust file modes
     # <- comment
 	filemode = false
     # ^ property
-    #        ^ punctuation.delimiter
-    #            ^ constant.builtin
+    #           ^ constant.builtin
 
 # Our diff algorithm
 [diff]
 	external = /usr/local/bin/diff-wrapper
+    #           ^ string.special.path
 	renames = true
 
 [branch "devel"]
+    #      ^ string
 	remote = origin
 	merge = refs/heads/devel
 
@@ -23,14 +24,20 @@
 [core]
 	gitProxy="ssh" for "kernel.org"
 	gitProxy=default-proxy ; for the rest
+	#                         ^ comment
 
 [include]
+# ^ function.builtin
 	path = /path/to/foo.inc ; include by absolute path
+    # <- property
+    #        ^ string.special.path
+    #                          ^ comment
 	path = foo.inc ; find "foo.inc" relative to the current file
 	path = ~/foo.inc ; find "foo.inc" in your `$HOME` directory
 
 ; include if $GIT_DIR is /path/to/foo/.git
 [includeIf "gitdir:/path/to/foo/.git"]
+# ^ function.builtin
 	path = /path/to/foo.inc
 
 ; include for all repositories inside /path/to/group
