@@ -35,7 +35,7 @@
   "tree-sitter": [
     {
       "file-types": [
-        ".git/config",
+        "gitconfig",
         ".gitmodules"
       ]
     }
