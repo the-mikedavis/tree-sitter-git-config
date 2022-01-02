@@ -1,7 +1,20 @@
+((section_name) @function.builtin
+ (#eq? @function.builtin "include"))
+
+((section_header
+   (section_name) @function.builtin
+   (subsection_name))
+ (#match? @function.builtin "^includeIf?$"))
+
+
 (section_name) @tag
 (variable (name) @property)
 [(true) (false)] @constant.builtin
 (integer) @number
+
+((string) @string.special.path
+ (#match? @string.special.path "^(~|./|/)"))
+
 [(string) (subsection_name)] @string
 
 [
