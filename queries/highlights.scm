@@ -4,8 +4,7 @@
 ((section_header
    (section_name) @function.builtin
    (subsection_name))
- (#match? @function.builtin "^includeIf?$"))
-
+ (#eq? @function.builtin "includeIf"))
 
 (section_name) @tag
 (variable (name) @property)
