@@ -16,7 +16,13 @@ module.exports = grammar({
     section: ($) => seq($.section_header, repeat(choice(eol($), $.variable))),
 
     section_header: ($) =>
-      seq("[", $.section_name, optional(seq('"', $.subsection_name, '"')), "]", eol($)),
+      seq(
+        "[",
+        $.section_name,
+        optional(seq('"', $.subsection_name, '"')),
+        "]",
+        eol($)
+      ),
 
     // "Only alphanumeric characters, - and . are allowed in section names"
     section_name: ($) => /[\w\.]+/,
@@ -66,9 +72,14 @@ module.exports = grammar({
     string: ($) => repeat1(choice($._quoted_string, $._unquoted_string)),
 
     _quoted_string: ($) =>
-      seq('"', repeat1(choice(/[^\r\n\"\\]/, $._escape_sequence, seq('\\', NEWLINE))), '"'),
+      seq(
+        '"',
+        repeat1(choice(/[^\r\n\"\\]/, $._escape_sequence, seq("\\", NEWLINE))),
+        '"'
+      ),
 
-    _unquoted_string: ($) => repeat1(choice(/[^\r\n;#\"\\]+/, seq('\\', NEWLINE))),
+    _unquoted_string: ($) =>
+      repeat1(choice(/[^\r\n;#\"\\]+/, seq("\\", NEWLINE))),
 
     _escape_sequence: ($) => /\\([btnfr"\\]|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8})/,
 

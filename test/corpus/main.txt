@@ -325,7 +325,7 @@ string concatenation
 [core]
 	gitProxy="ssh" for "kernel.org"
 	;        ^ _quoted
-	;              ^_unquoted
+	;             ^_unquoted
 	;                  ^ _quoted
 
 [alias]
