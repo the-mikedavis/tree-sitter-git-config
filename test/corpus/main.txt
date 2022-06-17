@@ -92,17 +92,7 @@ example from documentation with comments and multiple sections
     (comment)
     (variable
       (name)
-      (false)))
-  (comment)
-  (section
-    (section_header
-      (section_name))
-    (variable
-      (name)
-      (string))
-    (variable
-      (name)
-      (string))
+      (false))
     (comment))
   (section
     (section_header
@@ -110,15 +100,25 @@ example from documentation with comments and multiple sections
     (variable
       (name)
       (string))
-    (comment)
     (variable
       (name)
-      (string))
-    (comment)
+      (string)
+      (comment)))
+  (section
+    (section_header
+      (section_name))
     (variable
       (name)
-      (string)))
-  (comment))
+      (string)
+      (comment))
+    (variable
+      (name)
+      (string)
+      (comment))
+    (variable
+      (name)
+      (string)
+      (comment))))
 
 ================================================================================
 full example from documentation with comments and multiple sections
@@ -180,8 +180,8 @@ full example from documentation with comments and multiple sections
     (comment)
     (variable
       (name)
-      (false)))
-  (comment)
+      (false))
+    (comment))
   (section
     (section_header
       (section_name))
@@ -200,16 +200,6 @@ full example from documentation with comments and multiple sections
       (string))
     (variable
       (name)
-      (string)))
-  (comment)
-  (section
-    (section_header
-      (section_name))
-    (variable
-      (name)
-      (string))
-    (variable
-      (name)
       (string))
     (comment))
   (section
@@ -218,51 +208,61 @@ full example from documentation with comments and multiple sections
     (variable
       (name)
       (string))
-    (comment)
     (variable
       (name)
-      (string))
-    (comment)
+      (string)
+      (comment)))
+  (section
+    (section_header
+      (section_name))
+    (variable
+      (name)
+      (string)
+      (comment))
+    (variable
+      (name)
+      (string)
+      (comment))
+    (variable
+      (name)
+      (string)
+      (comment))
+    (comment))
+  (section
+    (section_header
+      (section_name)
+      (subsection_name))
     (variable
       (name)
       (string))
     (comment))
-  (comment)
   (section
     (section_header
       (section_name)
       (subsection_name))
     (variable
       (name)
-      (string)))
-  (comment)
+      (string))
+    (comment))
   (section
     (section_header
       (section_name)
       (subsection_name))
     (variable
       (name)
-      (string)))
-  (comment)
+      (string))
+    (comment)
+    (comment)
+    (comment))
   (section
     (section_header
       (section_name)
       (subsection_name))
     (variable
       (name)
-      (string)))
-  (comment)
-  (comment)
-  (comment)
-  (section
-    (section_header
-      (section_name)
-      (subsection_name))
-    (variable
-      (name)
-      (string)))
-  (comment)
-  (comment)
+      (string))
+    (comment)
+    (comment))
   (section
     (section_header
       (section_name)
@@ -270,3 +270,90 @@ full example from documentation with comments and multiple sections
     (variable
       (name)
       (string))))
+
+================================================================================
+strings containing comment characters
+================================================================================
+[alias]
+	add-ignore = "!git status --porcelain|sed '/.gitignore/d;s/^?? //p;d'>>.gitignore"
+	ahoy = !echo "a#hoy"
+
+--------------------------------------------------------------------------------
+
+(config
+  (section
+    (section_header
+      (section_name))
+    (variable
+      (name)
+      (string))
+    (variable
+      (name)
+      (string))))
+
+================================================================================
+multi-line values
+================================================================================
+[alias]
+	some1 = !echo bonjour \
+bonjour
+	some1else = "!echo bonjour \
+bonjour"
+	some-bool = false \
+but this was a string all along!!
+
+--------------------------------------------------------------------------------
+
+(config
+  (section
+    (section_header
+      (section_name))
+    (variable
+      (name)
+      (string))
+    (variable
+      (name)
+      (string))
+    (variable
+      (name)
+      (string))))
+
+================================================================================
+string concatenation
+================================================================================
+# Proxy settings
+[core]
+	gitProxy="ssh" for "kernel.org"
+	;        ^ _quoted
+	;              ^_unquoted
+	;                  ^ _quoted
+
+[alias]
+	some1 = !echo "bonjour \
+bonjour; not a comment"
+	some1else = !echo bonjour \
+bonjour; yes a comment
+
+--------------------------------------------------------------------------------
+
+(config
+  (comment)
+  (section
+    (section_header
+      (section_name))
+    (variable
+      (name)
+      (string))
+    (comment)
+    (comment)
+    (comment))
+  (section
+    (section_header
+      (section_name))
+    (variable
+      (name)
+      (string))
+    (variable
+      (name)
+      (string)
+      (comment))))

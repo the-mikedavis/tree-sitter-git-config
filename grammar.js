@@ -7,15 +7,16 @@ const ANYTHING = /[^\r\n]+/;
 module.exports = grammar({
   name: "git_config",
 
-  extras: ($) => [WHITE_SPACE, $.comment],
+  extras: ($) => [WHITE_SPACE],
+  conflicts: ($) => [[$.section], [$.string]],
 
   rules: {
-    config: ($) => repeat($.section),
+    config: ($) => repeat(choice(eol($), $.section)),
 
-    section: ($) => seq($.section_header, repeat(choice(NEWLINE, $.variable))),
+    section: ($) => seq($.section_header, repeat(choice(eol($), $.variable))),
 
     section_header: ($) =>
-      seq("[", $.section_name, optional(seq('"', $.subsection_name, '"')), "]"),
+      seq("[", $.section_name, optional(seq('"', $.subsection_name, '"')), "]", eol($)),
 
     // "Only alphanumeric characters, - and . are allowed in section names"
     section_name: ($) => /[\w\.]+/,
@@ -29,7 +30,7 @@ module.exports = grammar({
     // recognized as setting variables, in the form name = value (or just name, which is
     // a short-hand to say that the variable is the boolean "true")."
     variable: ($) =>
-      seq(choice(seq($.name, "=", field("value", $._value)), $.name)),
+      seq(choice(seq($.name, "=", field("value", $._value)), $.name), eol($)),
 
     // "The variable names are case-insensitive, allow only alphanumeric characters and -,
     // and must start with an alphabetic character."
@@ -59,15 +60,22 @@ module.exports = grammar({
     // and tends to match with higher implicit precedence.
     integer: ($) => token(prec(1, /\d+[kmgtpezyKMGTPEZY]?/)),
 
-    string: ($) => choice($._quoted_string, $._unquoted_string),
+    // "A line that defines a value can be continued to the next line by ending it with a `\`"
+    //
+    // This only applies to string values. It is done with the seq('\\'...) bits.
+    string: ($) => repeat1(choice($._quoted_string, $._unquoted_string)),
 
     _quoted_string: ($) =>
-      seq('"', repeat1(choice(/[^\"\\]/, $._escape_sequence)), '"'),
+      seq('"', repeat1(choice(/[^\r\n\"\\]/, $._escape_sequence, seq('\\', NEWLINE))), '"'),
 
-    _unquoted_string: ($) => /[^\r\n;#]+/,
+    _unquoted_string: ($) => repeat1(choice(/[^\r\n;#\"\\]+/, seq('\\', NEWLINE))),
 
     _escape_sequence: ($) => /\\([btnfr"\\]|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8})/,
 
     comment: ($) => seq(/[#;]/, optional(ANYTHING), NEWLINE),
   },
 });
+
+function eol($) {
+  return choice(NEWLINE, $.comment);
+}
