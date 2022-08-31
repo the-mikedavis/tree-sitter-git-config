@@ -263,7 +263,7 @@
     },
     "_unquoted_string": {
       "type": "PATTERN",
-      "value": "[^\\r\\n;#]+"
+      "value": "[^\\r\\n;# \\t\\f\\v][^\\r\\n;#]*"
     },
     "_escape_sequence": {
       "type": "PATTERN",
