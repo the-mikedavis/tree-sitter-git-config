@@ -64,7 +64,7 @@ module.exports = grammar({
     _quoted_string: ($) =>
       seq('"', repeat1(choice(/[^\"\\]/, $._escape_sequence)), '"'),
 
-    _unquoted_string: ($) => /[^\r\n;#]+/,
+    _unquoted_string: ($) => /[^\r\n;# \t\f\v][^\r\n;#]*/,
 
     _escape_sequence: ($) => /\\([btnfr"\\]|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8})/,
 
