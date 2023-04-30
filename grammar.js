@@ -23,7 +23,7 @@ module.exports = grammar({
     // "Subsection names are case sensitive and can contain any characters except newline
     // and the null byte."
     subsection_name: ($) =>
-      repeat1(choice(/[^\r\n\x00\"\\]+/, $._escape_sequence)),
+      repeat1(choice(/[^\r\n\x00\"\\]+/, $.escape_sequence)),
 
     // "All the other lines (and the remainder of the line after the section header) are
     // recognized as setting variables, in the form name = value (or just name, which is
@@ -62,11 +62,11 @@ module.exports = grammar({
     string: ($) => choice($._quoted_string, $._unquoted_string),
 
     _quoted_string: ($) =>
-      seq('"', repeat1(choice(/[^\"\\]/, $._escape_sequence)), '"'),
+      seq('"', repeat1(choice(/[^\"\\]/, $.escape_sequence)), '"'),
 
     _unquoted_string: ($) => /[^\r\n;# \t\f\v][^\r\n;#]*/,
 
-    _escape_sequence: ($) => /\\([btnfr"\\]|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8})/,
+    escape_sequence: ($) => /\\([btnfr"\\]|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8})/,
 
     comment: ($) => seq(/[#;]/, optional(ANYTHING), NEWLINE),
   },
