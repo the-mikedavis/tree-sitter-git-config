@@ -7,18 +7,21 @@ const ANYTHING = /[^\r\n]+/;
 module.exports = grammar({
   name: "git_config",
 
-  extras: ($) => [WHITE_SPACE, $.comment],
+  extras: ($) => [WHITE_SPACE],
 
   rules: {
-    config: ($) => repeat($.section),
+    config: ($) => repeat(choice($.section, seq(optional($.comment), NEWLINE))),
 
-    section: ($) => seq($.section_header, repeat(choice(NEWLINE, $.variable))),
+    section: ($) => seq($.section_header, $._section_body),
 
     section_header: ($) =>
       seq("[", $.section_name, optional(seq('"', $.subsection_name, '"')), "]"),
 
     // "Only alphanumeric characters, - and . are allowed in section names"
     section_name: ($) => /[\w\.]+/,
+
+    _section_body: ($) =>
+      prec.right(sep1(NEWLINE, seq(optional($.variable), optional($.comment)))),
 
     // "Subsection names are case sensitive and can contain any characters except newline
     // and the null byte."
@@ -56,15 +59,19 @@ module.exports = grammar({
     // to mean "scale the number by 1024", "by 1024x1024", etc."
     integer: ($) => /\d+[kmgtpezyKMGTPEZY]?/,
 
-    string: ($) => choice($._quoted_string, $._unquoted_string),
+    string: ($) => repeat1(choice($._quoted_string, $._unquoted_string)),
 
     _quoted_string: ($) =>
       seq('"', repeat1(choice(/[^\"\\]/, $.escape_sequence)), '"'),
 
-    _unquoted_string: ($) => /[^\r\n;# \t\f\v][^\r\n;#]*/,
+    _unquoted_string: ($) => /[^\r\n;#" \t\f\v][^\r\n;#"]*/,
 
     escape_sequence: ($) => /\\([btnfr"\\]|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8})/,
 
-    comment: ($) => seq(/[#;]/, optional(ANYTHING), NEWLINE),
+    comment: ($) => seq(/[#;]/, optional(ANYTHING)),
   },
 });
+
+function sep1(rule, separator) {
+  return seq(rule, repeat(seq(separator, rule)));
+}

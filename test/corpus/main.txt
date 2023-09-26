@@ -92,8 +92,8 @@ example from documentation with comments and multiple sections
     (comment)
     (variable
       (name)
-      (false)))
-  (comment)
+      (false))
+    (comment))
   (section
     (section_header
       (section_name))
@@ -117,8 +117,8 @@ example from documentation with comments and multiple sections
     (comment)
     (variable
       (name)
-      (string)))
-  (comment))
+      (string))
+    (comment)))
 
 ================================================================================
 full example from documentation with comments and multiple sections
@@ -180,8 +180,8 @@ full example from documentation with comments and multiple sections
     (comment)
     (variable
       (name)
-      (false)))
-  (comment)
+      (false))
+    (comment))
   (section
     (section_header
       (section_name))
@@ -200,8 +200,8 @@ full example from documentation with comments and multiple sections
       (string))
     (variable
       (name)
-      (string)))
-  (comment)
+      (string))
+    (comment))
   (section
     (section_header
       (section_name))
@@ -226,43 +226,43 @@ full example from documentation with comments and multiple sections
     (variable
       (name)
       (string))
+    (comment)
     (comment))
-  (comment)
   (section
     (section_header
       (section_name)
       (subsection_name))
     (variable
       (name)
-      (string)))
-  (comment)
+      (string))
+    (comment))
   (section
     (section_header
       (section_name)
       (subsection_name))
     (variable
       (name)
-      (string)))
-  (comment)
+      (string))
+    (comment))
   (section
     (section_header
       (section_name)
       (subsection_name))
     (variable
       (name)
-      (string)))
-  (comment)
-  (comment)
-  (comment)
+      (string))
+    (comment)
+    (comment)
+    (comment))
   (section
     (section_header
       (section_name)
       (subsection_name))
     (variable
       (name)
-      (string)))
-  (comment)
-  (comment)
+      (string))
+    (comment)
+    (comment))
   (section
     (section_header
       (section_name)
@@ -291,3 +291,25 @@ string starting with an integer
     (variable
       (name)
       (string))))
+
+================================================================================
+comment characters within strings
+================================================================================
+[alias]
+	test = "!f() { echo test; }; f"
+	rbq = !"git rebase --quit \"$@\" #comment"
+
+--------------------------------------------------------------------------------
+
+(config
+  (section
+    (section_header
+      (section_name))
+    (variable
+      (name)
+      (string))
+    (variable
+      (name)
+      (string
+        (escape_sequence)
+        (escape_sequence)))))
