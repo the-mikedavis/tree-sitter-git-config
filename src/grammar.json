@@ -209,15 +209,8 @@
       "value": "false"
     },
     "integer": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 1,
-        "content": {
-          "type": "PATTERN",
-          "value": "\\d+[kmgtpezyKMGTPEZY]?"
-        }
-      }
+      "type": "PATTERN",
+      "value": "\\d+[kmgtpezyKMGTPEZY]?"
     },
     "string": {
       "type": "CHOICE",
