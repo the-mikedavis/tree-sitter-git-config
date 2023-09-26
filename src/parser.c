@@ -34,7 +34,7 @@ enum {
   sym_integer = 15,
   aux_sym__quoted_string_token1 = 16,
   sym__unquoted_string = 17,
-  sym__escape_sequence = 18,
+  sym_escape_sequence = 18,
   aux_sym_comment_token1 = 19,
   aux_sym_comment_token2 = 20,
   sym_config = 21,
@@ -72,7 +72,7 @@ static const char * const ts_symbol_names[] = {
   [sym_integer] = "integer",
   [aux_sym__quoted_string_token1] = "_quoted_string_token1",
   [sym__unquoted_string] = "_unquoted_string",
-  [sym__escape_sequence] = "_escape_sequence",
+  [sym_escape_sequence] = "escape_sequence",
   [aux_sym_comment_token1] = "comment_token1",
   [aux_sym_comment_token2] = "comment_token2",
   [sym_config] = "config",
@@ -110,7 +110,7 @@ static const TSSymbol ts_symbol_map[] = {
   [sym_integer] = sym_integer,
   [aux_sym__quoted_string_token1] = aux_sym__quoted_string_token1,
   [sym__unquoted_string] = sym__unquoted_string,
-  [sym__escape_sequence] = sym__escape_sequence,
+  [sym_escape_sequence] = sym_escape_sequence,
   [aux_sym_comment_token1] = aux_sym_comment_token1,
   [aux_sym_comment_token2] = aux_sym_comment_token2,
   [sym_config] = sym_config,
@@ -202,8 +202,8 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = false,
     .named = true,
   },
-  [sym__escape_sequence] = {
-    .visible = false,
+  [sym_escape_sequence] = {
+    .visible = true,
     .named = true,
   },
   [aux_sym_comment_token1] = {
@@ -779,7 +779,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != ';') ADVANCE(68);
       END_STATE();
     case 69:
-      ACCEPT_TOKEN(sym__escape_sequence);
+      ACCEPT_TOKEN(sym_escape_sequence);
       END_STATE();
     case 70:
       ACCEPT_TOKEN(aux_sym_comment_token1);
@@ -866,7 +866,7 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [sym_true] = ACTIONS(1),
     [sym_false] = ACTIONS(1),
     [sym_integer] = ACTIONS(1),
-    [sym__escape_sequence] = ACTIONS(1),
+    [sym_escape_sequence] = ACTIONS(1),
     [aux_sym_comment_token1] = ACTIONS(3),
   },
   [1] = {
@@ -1011,7 +1011,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(48), 1,
       aux_sym_subsection_name_token1,
     ACTIONS(50), 1,
-      sym__escape_sequence,
+      sym_escape_sequence,
     ACTIONS(52), 1,
       aux_sym_comment_token1,
     STATE(10), 1,
@@ -1026,7 +1026,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(56), 1,
       aux_sym__quoted_string_token1,
     ACTIONS(59), 1,
-      sym__escape_sequence,
+      sym_escape_sequence,
     STATE(11), 2,
       sym_comment,
       aux_sym__quoted_string_repeat1,
@@ -1068,7 +1068,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(70), 1,
       aux_sym__quoted_string_token1,
     ACTIONS(72), 1,
-      sym__escape_sequence,
+      sym_escape_sequence,
     STATE(11), 1,
       aux_sym__quoted_string_repeat1,
     STATE(15), 1,
@@ -1077,7 +1077,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(48), 1,
       aux_sym_subsection_name_token1,
     ACTIONS(50), 1,
-      sym__escape_sequence,
+      sym_escape_sequence,
     ACTIONS(52), 1,
       aux_sym_comment_token1,
     STATE(10), 1,
@@ -1104,7 +1104,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(78), 1,
       aux_sym_subsection_name_token1,
     ACTIONS(81), 1,
-      sym__escape_sequence,
+      sym_escape_sequence,
     STATE(18), 2,
       sym_comment,
       aux_sym_subsection_name_repeat1,
@@ -1144,7 +1144,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(70), 1,
       aux_sym__quoted_string_token1,
     ACTIONS(72), 1,
-      sym__escape_sequence,
+      sym_escape_sequence,
     STATE(15), 1,
       aux_sym__quoted_string_repeat1,
     STATE(22), 1,
@@ -1158,7 +1158,7 @@ static const uint16_t ts_small_parse_table[] = {
       sym_comment,
     ACTIONS(90), 2,
       anon_sym_DQUOTE,
-      sym__escape_sequence,
+      sym_escape_sequence,
   [384] = 4,
     ACTIONS(52), 1,
       aux_sym_comment_token1,
@@ -1168,7 +1168,7 @@ static const uint16_t ts_small_parse_table[] = {
       sym_comment,
     ACTIONS(94), 2,
       anon_sym_DQUOTE,
-      sym__escape_sequence,
+      sym_escape_sequence,
   [398] = 3,
     ACTIONS(3), 1,
       aux_sym_comment_token1,
