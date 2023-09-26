@@ -4,8 +4,34 @@
     "config": {
       "type": "REPEAT",
       "content": {
-        "type": "SYMBOL",
-        "name": "section"
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "section"
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "comment"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              },
+              {
+                "type": "PATTERN",
+                "value": "\\r?\\n"
+              }
+            ]
+          }
+        ]
       }
     },
     "section": {
@@ -16,20 +42,8 @@
           "name": "section_header"
         },
         {
-          "type": "REPEAT",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "PATTERN",
-                "value": "\\r?\\n"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "variable"
-              }
-            ]
-          }
+          "type": "SYMBOL",
+          "name": "_section_body"
         }
       ]
     },
@@ -78,6 +92,60 @@
     "section_name": {
       "type": "PATTERN",
       "value": "[\\w\\.]+"
+    },
+    "_section_body": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": "\\r?\\n"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "variable"
+                        },
+                        {
+                          "type": "BLANK"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "comment"
+                        },
+                        {
+                          "type": "BLANK"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "PATTERN",
+                  "value": "\\r?\\n"
+                }
+              ]
+            }
+          }
+        ]
+      }
     },
     "subsection_name": {
       "type": "REPEAT1",
@@ -213,17 +281,33 @@
       "value": "\\d+[kmgtpezyKMGTPEZY]?"
     },
     "string": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_quoted_string"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_unquoted_string"
-        }
-      ]
+      "type": "REPEAT1",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_quoted_string"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_unquoted_string"
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "\\"
+              },
+              {
+                "type": "PATTERN",
+                "value": "\\r?\\n"
+              }
+            ]
+          }
+        ]
+      }
     },
     "_quoted_string": {
       "type": "SEQ",
@@ -256,7 +340,7 @@
     },
     "_unquoted_string": {
       "type": "PATTERN",
-      "value": "[^\\r\\n;# \\t\\f\\v][^\\r\\n;#]*"
+      "value": "[^\\r\\n;#\" \\t\\f\\v\\\\][^\\r\\n;#\"\\\\]*"
     },
     "escape_sequence": {
       "type": "PATTERN",
@@ -280,10 +364,6 @@
               "type": "BLANK"
             }
           ]
-        },
-        {
-          "type": "PATTERN",
-          "value": "\\r?\\n"
         }
       ]
     }
@@ -292,10 +372,6 @@
     {
       "type": "PATTERN",
       "value": "[ \\t\\f\\v]"
-    },
-    {
-      "type": "SYMBOL",
-      "name": "comment"
     }
   ],
   "conflicts": [],
