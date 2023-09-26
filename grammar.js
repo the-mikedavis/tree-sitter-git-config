@@ -59,12 +59,13 @@ module.exports = grammar({
     // to mean "scale the number by 1024", "by 1024x1024", etc."
     integer: ($) => /\d+[kmgtpezyKMGTPEZY]?/,
 
-    string: ($) => repeat1(choice($._quoted_string, $._unquoted_string)),
+    string: ($) =>
+      repeat1(choice($._quoted_string, $._unquoted_string, seq("\\", NEWLINE))),
 
     _quoted_string: ($) =>
       seq('"', repeat1(choice(/[^\"\\]/, $.escape_sequence)), '"'),
 
-    _unquoted_string: ($) => /[^\r\n;#" \t\f\v][^\r\n;#"]*/,
+    _unquoted_string: ($) => /[^\r\n;#" \t\f\v\\][^\r\n;#"\\]*/,
 
     escape_sequence: ($) => /\\([btnfr"\\]|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8})/,
 
