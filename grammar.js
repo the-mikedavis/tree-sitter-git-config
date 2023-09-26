@@ -54,10 +54,7 @@ module.exports = grammar({
 
     // "The value for many variables that specify various sizes can be suffixed with k, M,…
     // to mean "scale the number by 1024", "by 1024x1024", etc."
-    //
-    // We take manual control of precedence here since the $.color rule is more complicated
-    // and tends to match with higher implicit precedence.
-    integer: ($) => token(prec(1, /\d+[kmgtpezyKMGTPEZY]?/)),
+    integer: ($) => /\d+[kmgtpezyKMGTPEZY]?/,
 
     string: ($) => choice($._quoted_string, $._unquoted_string),
 

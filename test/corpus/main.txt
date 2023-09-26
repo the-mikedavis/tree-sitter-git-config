@@ -270,3 +270,24 @@ full example from documentation with comments and multiple sections
     (variable
       (name)
       (string))))
+
+================================================================================
+string starting with an integer
+================================================================================
+[submodule "3rdparty/perfparser"]
+	path = 3rdparty/perfparser
+	url = git@github.com:KDAB/perfparser.git
+
+--------------------------------------------------------------------------------
+
+(config
+  (section
+    (section_header
+      (section_name)
+      (subsection_name))
+    (variable
+      (name)
+      (string))
+    (variable
+      (name)
+      (string))))
