@@ -60,14 +60,18 @@ module.exports = grammar({
     integer: ($) => /\d+[kmgtpezyKMGTPEZY]?/,
 
     string: ($) =>
-      repeat1(choice($._quoted_string, $._unquoted_string, seq("\\", NEWLINE))),
+      repeat1(choice($._quoted_string, $._unquoted_string, $._line_continuation)),
 
     _quoted_string: ($) =>
-      seq('"', repeat1(choice(/[^\"\\]/, $.escape_sequence)), '"'),
+      seq('"', repeat1(choice(/[^\"]/, $.escape_sequence, $._line_continuation)), '"'),
 
     _unquoted_string: ($) => /[^\r\n;#" \t\f\v\\][^\r\n;#"\\]*/,
 
     escape_sequence: ($) => /\\([btnfr"\\]|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8})/,
+
+    // "A line that defines a value can be continued to the next line by ending it with a
+    // backslash (\); the backslash and the end-of-line characters are discarded."
+    _line_continuation: ($) => seq("\\", NEWLINE),
 
     comment: ($) => seq(/[#;]/, optional(ANYTHING)),
   },
