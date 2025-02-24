@@ -60,10 +60,16 @@ module.exports = grammar({
     integer: ($) => /\d+[kmgtpezyKMGTPEZY]?/,
 
     string: ($) =>
-      repeat1(choice($._quoted_string, $._unquoted_string, $._line_continuation)),
+      repeat1(
+        choice($._quoted_string, $._unquoted_string, $._line_continuation)
+      ),
 
     _quoted_string: ($) =>
-      seq('"', repeat1(choice(/[^\"]/, $.escape_sequence, $._line_continuation)), '"'),
+      seq(
+        '"',
+        repeat1(choice(/[^\"]/, $.escape_sequence, $._line_continuation)),
+        '"'
+      ),
 
     _unquoted_string: ($) => /[^\r\n;#" \t\f\v\\][^\r\n;#"\\]*/,
 
