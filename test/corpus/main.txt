@@ -335,3 +335,25 @@ line continuations with backslash
     (variable
       (name)
       (string))))
+
+================================================================================
+line continuations with backslash in quotes
+================================================================================
+[foo]
+	bar = "a \
+          multiline \
+          value"
+	baz = a single line value
+
+--------------------------------------------------------------------------------
+
+(config
+  (section
+    (section_header
+      (section_name))
+    (variable
+      (name)
+      (string))
+    (variable
+      (name)
+      (string))))

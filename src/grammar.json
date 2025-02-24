@@ -1,4 +1,5 @@
 {
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "git_config",
   "rules": {
     "config": {
@@ -294,17 +295,8 @@
             "name": "_unquoted_string"
           },
           {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "\\"
-              },
-              {
-                "type": "PATTERN",
-                "value": "\\r?\\n"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "_line_continuation"
           }
         ]
       }
@@ -323,11 +315,15 @@
             "members": [
               {
                 "type": "PATTERN",
-                "value": "[^\\\"\\\\]"
+                "value": "[^\\\"]"
               },
               {
                 "type": "SYMBOL",
                 "name": "escape_sequence"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_line_continuation"
               }
             ]
           }
@@ -345,6 +341,19 @@
     "escape_sequence": {
       "type": "PATTERN",
       "value": "\\\\([btnfr\"\\\\]|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8})"
+    },
+    "_line_continuation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "\\"
+        },
+        {
+          "type": "PATTERN",
+          "value": "\\r?\\n"
+        }
+      ]
     },
     "comment": {
       "type": "SEQ",
@@ -378,6 +387,6 @@
   "precedences": [],
   "externals": [],
   "inline": [],
-  "supertypes": []
+  "supertypes": [],
+  "reserved": {}
 }
-
