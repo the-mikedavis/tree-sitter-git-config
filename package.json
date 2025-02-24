@@ -26,7 +26,8 @@
   },
   "homepage": "https://github.com/the-mikedavis/tree-sitter-git-config#readme",
   "dependencies": {
-    "nan": "^2.15.0"
+    "node-addon-api": "^7.1.0",
+    "node-gyp-build": "^4.8.0"
   },
   "devDependencies": {
     "prettier": "^2.5.1",
