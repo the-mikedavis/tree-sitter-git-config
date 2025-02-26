@@ -61,11 +61,7 @@ module.exports = grammar({
 
     string: ($) =>
       repeat1(
-        choice(
-          $._quoted_string,
-          $._unquoted_string,
-          $._line_continuation
-        )
+        choice($._quoted_string, $._unquoted_string, $._line_continuation)
       ),
 
     _quoted_string: ($) =>
