@@ -296,9 +296,21 @@
           },
           {
             "type": "SYMBOL",
+            "name": "_empty_string"
+          },
+          {
+            "type": "SYMBOL",
             "name": "_line_continuation"
           }
         ]
+      }
+    },
+    "_empty_string": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "STRING",
+        "value": "\"\""
       }
     },
     "_quoted_string": {
