@@ -64,17 +64,14 @@ module.exports = grammar({
         choice(
           $._quoted_string,
           $._unquoted_string,
-          $._empty_string,
           $._line_continuation
         )
       ),
 
-    _empty_string: ($) => prec.left('""'),
-
     _quoted_string: ($) =>
       seq(
         '"',
-        repeat1(choice(/[^\"]/, $.escape_sequence, $._line_continuation)),
+        repeat(choice(/[^\"]/, $.escape_sequence, $._line_continuation)),
         '"'
       ),
 
