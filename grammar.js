@@ -67,7 +67,7 @@ module.exports = grammar({
     _quoted_string: ($) =>
       seq(
         '"',
-        repeat1(choice(/[^\"]/, $.escape_sequence, $._line_continuation)),
+        repeat(choice(/[^\"]/, $.escape_sequence, $._line_continuation)),
         '"'
       ),
 
