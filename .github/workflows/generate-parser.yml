@@ -31,8 +31,9 @@ jobs:
         run: npm ci
 
       - name: Generate parser files
-        run: |
-          npx tree-sitter generate
+        run: npx tree-sitter generate
+        env:
+          TREE_SITTER_ABI_VERSION: "14"
 
       - name: Commit generated parser files
         uses: stefanzweifel/git-auto-commit-action@v4
