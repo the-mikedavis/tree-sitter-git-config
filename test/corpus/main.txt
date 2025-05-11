@@ -307,10 +307,12 @@ comment characters within strings
       (section_name))
     (variable
       (name)
-      (string))
+      (string
+        (shell_command)))
     (variable
       (name)
       (string
+        (shell_command)
         (escape_sequence)
         (escape_sequence)))))
 
@@ -370,6 +372,45 @@ empty string
   (section
     (section_header
       (section_name))
+    (variable
+      (name)
+      (string))))
+
+================================================================================
+shell commands
+================================================================================
+[foo]
+    a = !"echo ok"
+    b = "!echo ok"
+    c = !echo ok
+    d = "echo" !"fail"
+    e = echo "!fail"
+    f = echo fail !
+
+--------------------------------------------------------------------------------
+
+(config
+  (section
+    (section_header
+      (section_name))
+    (variable
+      (name)
+      (string
+        (shell_command)))
+    (variable
+      (name)
+      (string
+        (shell_command)))
+    (variable
+      (name)
+      (string
+        (shell_command)))
+    (variable
+      (name)
+      (string))
+    (variable
+      (name)
+      (string))
     (variable
       (name)
       (string))))
