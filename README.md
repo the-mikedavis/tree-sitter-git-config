@@ -4,6 +4,4 @@
 
 A [tree-sitter](https://tree-sitter.github.io/tree-sitter/) grammar for git's configuration language
 
-### Status
-
-Workable, but needs more test cases.
+NOTE: when contributing, you can skip checking in the changes from `tree-sitter generate`. CI will push a commit to regenerate the parser on merge.
