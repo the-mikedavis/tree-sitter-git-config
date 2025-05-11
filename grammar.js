@@ -59,7 +59,7 @@ module.exports = grammar({
     // to mean "scale the number by 1024", "by 1024x1024", etc."
     integer: ($) => /\d+[kmgtpezyKMGTPEZY]?/,
 
-    string: ($) => choice($._shell_command_string, repeat1($._string_particle)),
+    string: ($) => choice($._shell_command_string, repeat1($._string_fragment)),
 
     _shell_command_string: ($) =>
       seq(
@@ -71,10 +71,10 @@ module.exports = grammar({
           // foo = "!..."
           seq('"', $.shell_command, $._quoted_string_content, '"')
         ),
-        repeat($._string_particle)
+        repeat($._string_fragment)
       ),
 
-    _string_particle: ($) =>
+    _string_fragment: ($) =>
       choice($._quoted_string, $._unquoted_string, $._line_continuation),
 
     _quoted_string: ($) => seq('"', optional($._quoted_string_content), '"'),
