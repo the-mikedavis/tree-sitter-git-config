@@ -67,6 +67,11 @@
     }
   },
   {
+    "type": "shell_command",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "string",
     "named": true,
     "fields": {},
@@ -76,6 +81,10 @@
       "types": [
         {
           "type": "escape_sequence",
+          "named": true
+        },
+        {
+          "type": "shell_command",
           "named": true
         }
       ]
@@ -133,6 +142,10 @@
         }
       ]
     }
+  },
+  {
+    "type": "!",
+    "named": false
   },
   {
     "type": "\"",
