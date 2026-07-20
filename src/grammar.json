@@ -374,6 +374,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "escape_sequence"
+        },
+        {
+          "type": "SYMBOL",
           "name": "_line_continuation"
         }
       ]
@@ -410,7 +414,7 @@
         "members": [
           {
             "type": "PATTERN",
-            "value": "[^\\\"]"
+            "value": "[^\\\"\\r\\n]"
           },
           {
             "type": "SYMBOL",
