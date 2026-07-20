@@ -75,12 +75,20 @@ module.exports = grammar({
       ),
 
     _string_fragment: ($) =>
-      choice($._quoted_string, $._unquoted_string, $._line_continuation),
+      choice(
+        $._quoted_string,
+        $._unquoted_string,
+        $.escape_sequence,
+        $._line_continuation
+      ),
 
     _quoted_string: ($) => seq('"', optional($._quoted_string_content), '"'),
 
+    // The fallback class excludes newlines so that an unterminated quoted
+    // string cannot swallow the rest of the file. Multi-line quoted values
+    // are still supported via the explicit `_line_continuation` branch.
     _quoted_string_content: ($) =>
-      repeat1(choice(/[^\"]/, $.escape_sequence, $._line_continuation)),
+      repeat1(choice(/[^\"\r\n]/, $.escape_sequence, $._line_continuation)),
 
     _unquoted_string: ($) => choice(/[^\r\n;#" \t\f\v\\!][^\r\n;#"\\]*/, "!"),
 
